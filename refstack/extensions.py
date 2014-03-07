@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 #
 # Copyright (c) 2013 Piston Cloud Computing, Inc.
 # All Rights Reserved.
@@ -14,26 +13,25 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
-from fabric.api import env, roles, run, cd
 
-# Define sets of servers as roles
-env.roledefs = {
-    'web': ['refstack.org'],
-}
+from flask.ext.admin import Admin
+admin = Admin()
 
-# Set the user to use for ssh
-env.user = 'refstack'
+from flask.ext.restless import APIManager
+api = APIManager()
 
-@roles('web')
-def get_version():
-    run('cat /etc/issue')
-    
-    
-@roles('web')
-def deploy():
-    with cd('/var/www/refstack'):
-        run('git checkout master')
-        run('git pull')
-        run('sudo pip install -r requirements.txt')
-        run('alembic upgrade head')
-        run('sudo uwsgi --reload /tmp/project-master_refstack.pid')
+from flask.ext.sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
+
+from flask.ext.mail import Mail
+mail = Mail()
+
+# TODO(termie): not used yet
+#from flask.ext.cache import Cache
+#cache = Cache()
+
+from flask.ext.login import LoginManager
+login_manager = LoginManager()
+
+from flask.ext.openid import OpenID
+oid = OpenID()

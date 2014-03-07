@@ -54,3 +54,8 @@ refstack/client/.smbdeleteAAA9ef44.4
 # Please, do not include my cloud credentials
 openrc.sh
 openrc.*
+
+openid/*
+
+db.sqlite
+
