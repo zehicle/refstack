@@ -1,58 +1,31 @@
-RefStack
-========
+RefStack/TCUP and Driver Test
+=============================
 
-Vendor-facing API for registration of interop-compliance endpoints and credentials for on-demand testing.
+This project support collection and publication of Community Test results for OpenStack.  There are multiple components of this effort:
 
-See (living) documentation at https://etherpad.openstack.org/RefStackBlueprint
+* RefStack: Community-facing API for registration of interop-compliance endpoints and credentials for on-demand testing.
+* TCUP: Portable, Containerized Tempest for Community running and reporting results to RefStack
+* Driver Test
 
-
-Okay, I'm Sold, How Do I Run This Myself?
+Participate
 -----------------------------------------
 
-This is our documentation for how we get this set up::
-
-  # Git you clonin'
-  git clone http://github.com/stackforge/refstack
-
-  cd refstack
-
-  # Setup or update the database
-  # NOTE: you are going to have to modify the db connection string in
-  #       `alembic.ini` to get this working
-  # PROTIP: if you just want to test this out, use `-n alembic_sqlite` to
-  #         make a local sqlite db
-  #         $ alembic -n alembic_sqlite upgrade head
-  alembic upgrade head
-
-  # Plug this bad boy into your server infrastructure.
-  # We use nginx and gunicorn, you may use something else if you are smarter
-  # than we are.
-  # For the most basic setup that you can try right now, just kick off
-  # gunicorn:
-  gunicorn -b 0.0.0.0:8000 refstack.web:app
-
-  # To actually configure this winner, check out the config section and
-  # crack open refstack.cfg in vim.
-  # `vim refstack.cfg`
-
-  # Now browse to http://localhost:8000
+* Mailing List: fits@openstack.org
+* IRC: #refstack on Freenode
+* Dev Meetings: https://wiki.openstack.org/wiki/Meetings#DefCore_.2F_RefStack_Development_Meeting
 
 
-Configuration
--------------
+Test your Cloud and Share! > Running TCUP
+-----------------------------------------
 
-Coming soon!
+TCUP (Tempest in a Container to Upload from Probe) is a portable way for community members to quickly and consistently run Tempest against private and public clouds.
 
-TODO:
-=====
+[[doc/tcup.md]]
 
-Metadata gathering:
- - Number of nodes
- - vCPUs
- - Distro
- - Deployment approach
- - RAM
+Collecting the Results > Running RefStack 
+-----------------------------------------
 
-Plugins:
- - Cinder
- - Neutron
+RefStack is a Web UI and API used to collect test results from TCUP and display results.  This information is used by the DefCore committee to help select must-pass capabilities.
+
+[[doc/refstack.md]]
+

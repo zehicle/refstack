@@ -42,10 +42,6 @@ RUN pip install -r /tempest/test-requirements.txt
 
 
 #Publishing to refstack
-#ENV POST <url> 
-
-#rest of file
-
-#eof
+ENV TCUP 0.1.0
 
 # To start the image, docker run -i -t [image id] /refstack/kick.sh
