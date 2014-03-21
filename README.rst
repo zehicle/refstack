@@ -10,10 +10,17 @@ This project support collection and publication of Community Test results for Op
 Participate
 -----------------------------------------
 
-* Mailing List: fits@openstack.org
-* IRC: #refstack on Freenode
-* Dev Meetings: https://wiki.openstack.org/wiki/Meetings#DefCore_.2F_RefStack_Development_Meeting
-
+ +Mailing List: fits@openstack.org
+ +IRC: #refstack on Freenode
+ +Dev Meetings: https://wiki.openstack.org/wiki/Meetings#DefCore_.2F_RefStack_Development_Meeting
+ +Web-site: http://refstack.org
+ +Source Code: http://github.com/stackforge/refstack
+ +Wiki: https://wiki.openstack.org/wiki/RefStack
+ +Launchpad: https://launchpad.net/refstack
+ +Blueprints: https://blueprints.launchpad.net/refstack
+ +Bugs: https://bugs.launchpad.net/refstack
+ +Code Reviews: https://review.openstack.org/#q,status:open+refstack,n,z
+ +IRC: #refstack at freenode
 
 Test your Cloud and Share! > Running TCUP
 -----------------------------------------
