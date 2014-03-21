@@ -10,8 +10,11 @@ TCUP Configuration
 1. create/copy your OpenStack credentials into openrc.sh an file
 
 1. Create the TCUP container: `docker build t-container`
+  1. note the container id returned
 
-1. Run the container: `docker run -v ``pwd``:/tcup:rw -i -t 32fe2d733d51 /bin/bash`
+1. Run the container: 
+
+    docker run -v ``pwd``:/tcup:rw -i -t [container id] /bin/bash
 
 1. Inside the container run the following
    1. `source tcup/openrc.sh`
