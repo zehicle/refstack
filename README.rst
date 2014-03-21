@@ -11,17 +11,19 @@ Participate
 -----------------------------------------
 
 * General
-  * Mailing List: fits@openstack.org
-  * IRC: #refstack on Freenode
-  * Dev Meetings: https://wiki.openstack.org/wiki/Meetings#DefCore_.2F_RefStack_Development_Meeting
-  * Web-site: http://refstack.org
-  * Wiki: https://wiki.openstack.org/wiki/RefStack
+
+    * Mailing List: fits@openstack.org
+    * IRC: #refstack on Freenode
+    * Dev Meetings: https://wiki.openstack.org/wiki/Meetings#DefCore_.2F_RefStack_Development_Meeting
+    * Web-site: http://refstack.org
+    * Wiki: https://wiki.openstack.org/wiki/RefStack
 
 * Development
-  * Launchpad: https://launchpad.net/refstack
-  * Blueprints: https://blueprints.launchpad.net/refstack
-  * Bugs: https://bugs.launchpad.net/refstack
-  * Code Reviews: https://review.openstack.org/#q,status:open+refstack,n,z
+
+    * Launchpad: https://launchpad.net/refstack
+    * Blueprints: https://blueprints.launchpad.net/refstack
+    * Bugs: https://bugs.launchpad.net/refstack
+    * Code Reviews: https://review.openstack.org/#q,status:open+refstack,n,z
 
 Test your Cloud and Share! > Running TCUP
 -----------------------------------------
