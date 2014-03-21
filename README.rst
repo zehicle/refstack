@@ -20,12 +20,12 @@ Test your Cloud and Share! > Running TCUP
 
 TCUP (Tempest in a Container to Upload from Probe) is a portable way for community members to quickly and consistently run Tempest against private and public clouds.
 
-[[doc/tcup.md]]
+`TCUP docs <doc/tcup.md>`_
 
 Collecting the Results > Running RefStack 
 -----------------------------------------
 
 RefStack is a Web UI and API used to collect test results from TCUP and display results.  This information is used by the DefCore committee to help select must-pass capabilities.
 
-[[doc/refstack.md]]
+`RefStack docs <doc/refstack.md>`_
 
