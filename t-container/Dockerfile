@@ -31,9 +31,12 @@ RUN pip install ftp://xmlsoft.org/libxml2/python/libxml2-python-2.6.9.tar.gz
 # Cloning tempest
 #RUN git clone https://github.com/openstack/tempest
 
+# Cloning refstack
+RUN git clone https://github.com/stackforge/refstack.git
+
 # Get tempest code 
-RUN wget https://github.com/openstack/tempest/archive/stable/havana.zip
-RUN unzip havana.zip
+RUN wget https://github.com/openstack/tempest/archive/stable/havana.zip 
+RUN unzip havana.zip 
 RUN mv /tempest-stable-havana /tempest
 
 #running setup
@@ -54,15 +57,4 @@ RUN mv /tempest-stable-havana /tempest
 RUN pip install -r /tempest/requirements.txt
 RUN pip install -r /tempest/test-requirements.txt
 
-#Running tempest config creator
-#CMD  'cd /tempest && git checkout stable/havana && /tempest/run_tests.sh -C /tempest/tempest.conf -N --  tempest'
-#CMD  'cd /tempest && /tempest/run_tests.sh -C /tempest/tempest.conf -N --  tempest'
 
-#Publishing to refstack
-#ADD <url> /temp/
-
-#rest of file
-
-#eof
-
-# To start the image, docker run -i -t [image id] /bin/bash

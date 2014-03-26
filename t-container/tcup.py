@@ -40,17 +40,19 @@ if __name__ == "__main__":
     if not api_addr:
         api_addr = "http://refstack.org/result"
 
-
+    # build the container
+    print "Downloading & Building TCUP Image...(the first run takes time)"
     build_output = commands.getoutput("docker build t-container")
     image = re.search("Successfully built (.*)", build_output).group(1)
     print "TCUP Built Docker Image ID: "+image
 
-
-    docker_run = "docker run -i -t "+image
+    # create the docker run
+    docker_run = "docker run -name tcup -d -i -t "+image
     for e in os.environ:
-      docker_run += ' -e '+e+'="'+os.environ[e]+'"'
+      docker_run += ' -x "'+e+'='+os.environ[e]+'"'
 
     docker_run += " python refstack/tools/execute_test.py --callback ${api_addr} ${test_id}"
     print docker_run
     docker_output = commands.getoutput(docker_run)
     print docker_output
+    print "You can monitor the TCUP results using \n\tsudo docker attach tcup"
