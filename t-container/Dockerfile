@@ -19,22 +19,27 @@ FROM ubuntu
 RUN apt-get update
 
 # Downloading tools
-RUN apt-get install -y git python-pip wget unzip
+RUN apt-get install -y git wget unzip
+
 
 #Downloading dependencies
-RUN apt-get install -y libxml2-dev libxslt-dev lib32z1-dev python2.7-dev libssl-dev
+RUN apt-get install -y python-pip libxml2-dev libxslt-dev lib32z1-dev python2.7-dev libssl-dev
 
 #other dependencies
 RUN apt-get install -y python-dev libxslt1-dev libsasl2-dev libsqlite3-dev libldap2-dev libffi-dev
 RUN pip install ftp://xmlsoft.org/libxml2/python/libxml2-python-2.6.9.tar.gz
 
-# Cloning tempest
-#RUN git clone https://github.com/openstack/tempest
-
-# Cloning refstack
+# Cloning RefStack to run the tests (we'll need to pull latest)
 RUN git clone https://github.com/stackforge/refstack.git
 
-# Get tempest code 
+# Version of TCUP 
+# Changing REBUILDs the container from this point forward
+ENV TCUP 0.1.0
+
+# Get tempest code (one of two approaches)
+# Option 1: Use the Source Code
+# RUN git clone https://github.com/openstack/tempest
+# Option 2: Use the Packaged Code
 RUN wget https://github.com/openstack/tempest/archive/stable/havana.zip 
 RUN unzip havana.zip 
 RUN mv /tempest-stable-havana /tempest
@@ -54,7 +59,9 @@ RUN mv /tempest-stable-havana /tempest
 #ADD https://github.com/openstack/keystone/blob/master/test-requirements.txt /temp/
 
 #using dependencies
-RUN pip install -r /tempest/requirements.txt
-RUN pip install -r /tempest/test-requirements.txt
+# FAILING! > RUN pip install -r /tempest/requirements.txt
+# FAILING! > RUN pip install -r /tempest/test-requirements.txt
 
+#Get latest refstack
+CMD cd refstack; git pull
 

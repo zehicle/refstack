@@ -24,35 +24,43 @@ import re
 
 if __name__ == "__main__":
 
-    # Confirm that they've sourced their openrc credentials already
-    if not os.environ.get('OS_PASSWORD'):
-        raise Exception('OS_PASSWORD Env Variable Missing: You may need to "source openrc.sh" first.')
-    if not os.environ.get('OS_USERNAME'):
-        raise Exception('OS_USERNAME Env Variable Missing: You need to "source openrc.sh" file first.')
-    if not os.environ.get('OS_AUTH_URL'):
-        raise Exception('OS_AUTH_URL Env Variable Missing: You need to "source openrc.sh" file first.')
-
-    test_id = os.environ.get('TEST_ID')
-    if not test_id:
-        test_id = 1000
-
-    api_addr = os.environ.get('API_SERVER_ADDRESS')
-    if not api_addr:
-        api_addr = "http://refstack.org/result"
+    # before we start, Confirm that they've sourced their openrc credentials already
+    for e in {'OS_PASSWORD','OS_USERNAME','OS_AUTH_URL'}:
+        if not os.environ.get(e):
+            raise Exception(e + 'Env Variable Missing: You may need to "source openrc.sh" first.')
 
     # build the container
-    print "Downloading & Building TCUP Image...(the first run takes time)"
-    build_output = commands.getoutput("docker build t-container")
-    image = re.search("Successfully built (.*)", build_output).group(1)
-    print "TCUP Built Docker Image ID: "+image
+    print "Downloading & Building T-CUP Image...(the first run may take a long time)"
+    docker_file_source = "t-container"
+    print "\texecuting `docker build " + docker_file_source+"`"
+    build_output = commands.getoutput("docker build " + docker_file_source)
+    image = re.search("Successfully built ([0-9a-f]{12})", build_output).group(1)
+    print "\nT-CUP Built Docker Image ID: "+image
 
-    # create the docker run
-    docker_run = "docker run -name tcup -d -i -t "+image
-    for e in os.environ:
-      docker_run += ' -x "'+e+'='+os.environ[e]+'"'
 
-    docker_run += " python refstack/tools/execute_test.py --callback ${api_addr} ${test_id}"
-    print docker_run
+    # collect environment variables to pass, we don't want all of them
+    e_vars = dict(os.environ)
+    for e in {"LS_COLORS", "HOME", "PATH", "PWD", "OLDPWD", "LESSCLOSE", "SSH_CONNECTION"}:
+        try: e_vars.pop(e, None)
+        except:  pass
+
+    # test specific configuration
+    if not os.environ.get('TEST_ID'): e_vars["test_id"] = "1000"
+
+    if not os.environ.get('API_SERVER_ADDRESS'): e_vars["api_addr"] = "http://refstack.org/result"
+
+    # create the docker run command line
+    docker_run = "docker run -d -i"
+    for e in e_vars:
+      docker_run += ' -e "'+e+'='+e_vars[e]+'"'
+    docker_run += ' -t '+image
+    debug = 1
+    if debug:
+        docker_run += " /bin/bash"
+    else:
+        docker_run += " cd refstack; python refstack/tools/execute_test.py --callback ${api_addr} ${test_id}"
+    print "\texecuting: '"+docker_run+"'"
+    
+    # start the container and advise the user about how to attach
     docker_output = commands.getoutput(docker_run)
-    print docker_output
-    print "You can monitor the TCUP results using \n\tsudo docker attach tcup"
+    print "\nYou can monitor the T-CUP results using (hint: you may have to press [enter])\n\t'sudo docker attach "+docker_output[0:12]+"'"

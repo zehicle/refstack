@@ -6,6 +6,8 @@ The following instructions are designs run RefStack/Tempest in a container with 
 > These steps are _not_ do not install RefStack for contributions or development, they are intended for a user who wants to just run and report test results.
 
 1. Install Docker using [[https://www.docker.io/gettingstarted/#h_installation]]
+  1. Note: if you are in an environment with a proxy, make sure you configure `/etc/default/docker` to leverage the proxy too!
+
 
 1. Get the code: `wget https://raw.githubusercontent.com/stackforge/refstack/master/t-container/tcup.py`
   1. note: you can also get the code by cloning the RefStack and running the code in `/t-container`
@@ -14,11 +16,12 @@ The following instructions are designs run RefStack/Tempest in a container with 
   1. generally, you will `source openrc.sh` to load the cloud credentials and URLs
 
 1. Run TCUP: `sudo python tcup.py`
-  1. If you want to watch the process, you will need to `docker attach [container id]`
-  git clone http://github.com/stackforge/refstack
-
+  1. if you want to work on the code from RefStack, use `sudo python t-container/tcup.py'
 
 Notes:
+1. You can inspect which containers are running!
+  1. `sudo docker ps` shows the running containers
+  1. `sudo docker attach` allows you to connect to a container (may have to press enter)
 1. Orphaned Containers: Over time, you may end up with [orphaned contaniers](http://jimhoskins.com/2013/07/27/remove-untagged-docker-images.html), use the following to clean them up
   1. `sudo docker rm $(docker ps -a -q)`
   1. `sudo docker rmi $(docker images | grep "^<none>" | awk "{print $3}")`
