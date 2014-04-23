@@ -29,6 +29,8 @@ The following instructions are designs run Refstack/Tempest in a container with 
 
 ## Troubleshooting TCUP
 
+Before troubleshooting TCUP, make sure that you have network connectivity to our target cloud from the host system (the one you run TCUP on).   You should be able to `ping $OS_AUTH_URL` and then get a 200 response from `curl $OS_AUTH_URL` 
+
 There are several ways to trouble shoot, TCUP. 
 
 1. Run TCUP using the debug flag: `tcup.py --debug`
